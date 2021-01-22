@@ -1,0 +1,44 @@
+body{
+    background-color: bisque;
+    font-family: 'Comfortaa', cursive;
+}
+
+.container {
+    margin-top: 50px;
+    margin-left: 400px;
+    margin-right: 400px;
+    /* border: 5px solid black; */
+}
+
+.mt-30{
+    margin-top: 30px;
+}
+
+.avatar_image{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+.information{
+    position: inline;
+}
+
+.left-column{
+    color:green;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Potta One', cursive;
+}
+
+.email{
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.name{
+    font-size:50px;
+    margin-bottom: 20px;
+}
