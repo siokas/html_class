@@ -1,0 +1,66 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url('../fonts/ProximaNova-Regular.otf');
+ }
+ 
+body{
+    font-family: ProximaNova;
+    color: #000000;
+    font-size: 14px;
+    background-color: #f8f9fa;
+}
+
+.me-20{
+    margin-right: 150px;
+}
+.mt-10{
+    margin-top:75px;
+}
+
+.active {
+    border-bottom: 2px solid #f0932b;
+}
+
+.nav-item:hover{
+    font-weight: bold;
+    border-bottom: 2px solid grey;
+}
+
+.btn-primary{
+    background-color: #f0932b;
+    border-color: #f0932b;
+    border-radius: 25px;
+}
+
+.btn-primary:hover{
+    background-color: #ffffff;
+    border-color: #f0932b;
+    color: #f0932b;
+}
+
+.main-image{
+    width: 900px;
+}
+
+.hero{
+
+}
+
+.subtitle{
+    color:#f0932b;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.title{
+    color:#192a56;
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 80%;
+}
+
+.description{
+    font-size: 20px;
+    width: 260px;
+    color: #7f8fa6;
+}
