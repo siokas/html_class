@@ -1,0 +1,35 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url('../fonts/ProximaNova-Regular.otf');
+ }
+ 
+body{
+    font-family: ProximaNova;
+    color: #ffffff;
+    font-size: 1.6rem;
+    background-color: #0f1519;
+}
+
+.myContainer{
+    margin-left: 90px;
+    margin-right: 90px;
+}
+
+.nav-link{
+    font-size: 16px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.active{
+    border-bottom: 2px solid aquamarine;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid aquamarine;
+}
+
+.navbar{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
