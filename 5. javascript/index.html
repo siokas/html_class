@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Intro to javascript</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div id="question-box" class="question-box">
+                Ο Clark Kent είναι ο Batman?
+            </div>
+            <div id="message" class="message">
+            </div>
+            <div class="buttons">
+                <button id="btn-true" class="btn btn-true" onclick="checkAnswer(true)">True</button>
+                <button id="btn-false" class="btn btn-false" onclick="checkAnswer(false)">False</button>
+            </div>
+            
+        </div>
+        
+        <script>
+            var questionBox = document.getElementById("question-box")
+            var message = document.getElementById("message")
+            var btnTrue = document.getElementById("btn-true")
+            var btnFalse = document.getElementById("btn-false")
+            var times = 0
+
+            function checkAnswer(answer){
+                if(times == 0){
+                    if(answer == true){
+                        questionBox.style.backgroundColor = "red";
+                        message.style.color="red";
+                        message.innerHTML = "YOUR ANSER IS INCORRECT"
+                        btnTrue.style.backgroundColor = "black"
+                    }else{
+                        questionBox.style.backgroundColor = "green";
+                        message.style.color="green";
+                        message.innerHTML = "YOUR ANSER IS CORRECT"
+                        btnFalse.style.backgroundColor = "black"
+                    }
+                    times = times + 1
+                    btnTrue.disabled = true;
+                    btnFalse.disabled = true;
+                }
+            }
+        </script>
+    </body>
+</html>
