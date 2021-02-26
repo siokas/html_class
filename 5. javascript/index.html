@@ -1,50 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Intro to javascript</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            <div id="question-box" class="question-box">
-                Ο Clark Kent είναι ο Batman?
-            </div>
-            <div id="message" class="message">
-            </div>
-            <div class="buttons">
-                <button id="btn-true" class="btn btn-true" onclick="checkAnswer(true)">True</button>
-                <button id="btn-false" class="btn btn-false" onclick="checkAnswer(false)">False</button>
-            </div>
-            
+  <head>
+    <title>Intro to javascript</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><span style="font-size: 30px">H - Quiz</span
+          ><span style="font-size: 20px">z</span
+          ><span style="font-size: 10px">z</span
+          ><span style="font-size: 5px">z</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
         </div>
-        
-        <script>
-            var questionBox = document.getElementById("question-box")
-            var message = document.getElementById("message")
-            var btnTrue = document.getElementById("btn-true")
-            var btnFalse = document.getElementById("btn-false")
-            var times = 0
+      </div>
+    </nav>
+    <div class="container">
+      <div class="inline">
+        <h1>Play Game</h1>
+        <!-- <span># of Question:</span> <span id="score">0</span> -->
+        <span>Score:</span> <span id="score">0</span>
+      </div>
+      <div id="question-box" class="question-box"></div>
+      <div id="message" class="message"></div>
+      <div class="buttons">
+        <button id="btn-true" class="btn btn-true" onclick="checkAnswer(true)">
+          True
+        </button>
+        <button
+          id="btn-false"
+          class="btn btn-false"
+          onclick="checkAnswer(false)"
+        >
+          False
+        </button>
+      </div>
+      <div class="text-center mt-1">
+        <button
+          id="btn-next"
+          class="btn btn-next"
+          onclick="nextQuestion()"
+          disabled
+        >
+          ⚡ Next Question ⚡
+        </button>
+      </div>
+    </div>
 
-            function checkAnswer(answer){
-                if(times == 0){
-                    if(answer == true){
-                        questionBox.style.backgroundColor = "red";
-                        message.style.color="red";
-                        message.innerHTML = "YOUR ANSER IS INCORRECT"
-                        btnTrue.style.backgroundColor = "black"
-                    }else{
-                        questionBox.style.backgroundColor = "green";
-                        message.style.color="green";
-                        message.innerHTML = "YOUR ANSER IS CORRECT"
-                        btnFalse.style.backgroundColor = "black"
-                    }
-                    times = times + 1
-                    btnTrue.disabled = true;
-                    btnFalse.disabled = true;
-                }
-            }
-        </script>
-    </body>
+    <script src="js/questions.js"></script>
+    <script>
+      var questionBox = document.getElementById("question-box");
+      var message = document.getElementById("message");
+      var btnTrue = document.getElementById("btn-true");
+      var btnFalse = document.getElementById("btn-false");
+      var btnNext = document.getElementById("btn-next");
+      var scoreElement = document.getElementById("score");
+      var times = 0;
+      var questionNumber = 0;
+      var score = 0;
+
+      chnageQuestion(questionNumber);
+
+      function nextQuestion() {
+        questionNumber++; // questionNumber = questionNumber + 1
+        chnageQuestion(questionNumber);
+        resetQuestion();
+      }
+
+      function resetQuestion() {
+        questionBox.style.backgroundColor = "white";
+        btnFalse.style.backgroundColor = "rgb(135, 81, 81)";
+        btnTrue.style.backgroundColor = "rgb(42, 101, 51)";
+        message.innerHTML = "";
+        btnTrue.disabled = false;
+        btnFalse.disabled = false;
+        btnNext.disabled = true;
+      }
+
+      function checkAnswer(choise) {
+        if (choise == questions[questionNumber].answer) {
+          questionBox.style.backgroundColor = "green";
+          message.style.color = "green";
+          message.innerHTML = "YOUR ANSWER IS CORRECT";
+          score++;
+          scoreElement.innerText = score;
+        } else {
+          questionBox.style.backgroundColor = "red";
+          message.style.color = "red";
+          message.innerHTML = "YOUR ANSWER IS INCORRECT";
+        }
+
+        if (choise) {
+          btnTrue.style.backgroundColor = "black";
+        } else {
+          btnFalse.style.backgroundColor = "black";
+        }
+        times = times + 1;
+        btnTrue.disabled = true;
+        btnFalse.disabled = true;
+        btnNext.disabled = false;
+      }
+
+      function chnageQuestion(number) {
+        questionBox.innerHTML = questions[number].question;
+      }
+    </script>
+  </body>
 </html>
