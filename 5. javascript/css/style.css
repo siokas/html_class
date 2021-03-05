@@ -35,6 +35,13 @@
     border:0px;
 }
 
+.btn-restart{
+    background-color: #f1c40f;
+    color:#34495e;
+    border:0px;
+    width: 805px;
+}
+
 .btn-true:hover{
     background-color:rgb(42, 101, 51);
     color:beige;

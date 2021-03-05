@@ -51,9 +51,9 @@
     </nav>
     <div class="container">
       <div class="inline">
-        <h1>Play Game</h1>
+        <!-- <h1>Play Game</h1> -->
         <!-- <span># of Question:</span> <span id="score">0</span> -->
-        <span>Score:</span> <span id="score">0</span>
+        <span id="score">Score: 0</span>
       </div>
       <div id="question-box" class="question-box"></div>
       <div id="message" class="message"></div>
@@ -74,31 +74,53 @@
           id="btn-next"
           class="btn btn-next"
           onclick="nextQuestion()"
-          disabled
+          hidden
         >
           ⚡ Next Question ⚡
+        </button>
+      </div>
+      <div class="text-center mt-1">
+        <button
+          id="btn-restart"
+          class="btn btn-restart"
+          onclick="restartGame()"
+          hidden
+        >
+          Restart Game
         </button>
       </div>
     </div>
 
     <script src="js/questions.js"></script>
     <script>
+
       var questionBox = document.getElementById("question-box");
       var message = document.getElementById("message");
       var btnTrue = document.getElementById("btn-true");
       var btnFalse = document.getElementById("btn-false");
       var btnNext = document.getElementById("btn-next");
+      var btnRestart = document.getElementById("btn-restart");
       var scoreElement = document.getElementById("score");
       var times = 0;
       var questionNumber = 0;
       var score = 0;
+      var allQuestions = Object.keys(questions).length;
+      var getRandomNumber = Math.floor(Math.random() * allQuestions);
 
-      chnageQuestion(questionNumber);
+      changeQuestion(getRundomQuestion());
 
       function nextQuestion() {
-        questionNumber++; // questionNumber = questionNumber + 1
-        chnageQuestion(questionNumber);
-        resetQuestion();
+        if (questionNumber >= allQuestions - 1) {
+          gameover();
+        } else {
+          if (questionNumber == allQuestions - 2) {
+            btnNext.innerHTML = "SHOW RESULTS";
+            btnNext.backgroundColor = "#e67e22";
+          }
+          questionNumber++; // questionNumber = questionNumber + 1
+          changeQuestion(getRundomQuestion());
+          resetQuestion();
+        }
       }
 
       function resetQuestion() {
@@ -108,16 +130,21 @@
         message.innerHTML = "";
         btnTrue.disabled = false;
         btnFalse.disabled = false;
-        btnNext.disabled = true;
+        btnNext.hidden = true;
       }
 
       function checkAnswer(choise) {
+        if (questionNumber == allQuestions - 1) {
+          btnFalse.hidden = true;
+          btnTrue.hidden = true;
+          btnNext.style.fontSize = "80px";
+        }
         if (choise == questions[questionNumber].answer) {
           questionBox.style.backgroundColor = "green";
           message.style.color = "green";
           message.innerHTML = "YOUR ANSWER IS CORRECT";
           score++;
-          scoreElement.innerText = score;
+          scoreElement.innerText = "Score: " + score;
         } else {
           questionBox.style.backgroundColor = "red";
           message.style.color = "red";
@@ -132,11 +159,35 @@
         times = times + 1;
         btnTrue.disabled = true;
         btnFalse.disabled = true;
-        btnNext.disabled = false;
+        btnNext.hidden = false;
       }
 
-      function chnageQuestion(number) {
+      function changeQuestion(number) {
         questionBox.innerHTML = questions[number].question;
+        questions.splice(number, 1);
+      }
+
+      function gameover() {
+        btnTrue.hidden = true;
+        btnFalse.hidden = true;
+        btnNext.hidden = true;
+        message.innerHTML = "";
+        questionBox.style.backgroundColor = "#ffffff";
+        questionBox.innerHTML = "Your Final Score is: " + score;
+        scoreElement.innerHTML = "";
+        btnRestart.hidden = false;
+      }
+
+      // TODO
+      function restartGame(){
+        window.location = './index.html';
+      }
+
+      function getRundomQuestion(){
+        allQuestions = Object.keys(questions).length;
+        getRandomNumber = Math.floor(Math.random() * allQuestions);
+        console.log(getRandomNumber)
+        return getRandomNumber;
       }
     </script>
   </body>
