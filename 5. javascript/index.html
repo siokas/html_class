@@ -107,7 +107,8 @@
       var allQuestions = Object.keys(questions).length;
       var getRandomNumber = Math.floor(Math.random() * allQuestions);
 
-      changeQuestion(getRundomQuestion());
+      // changeQuestion(getRundomQuestion());
+      changeQuestion(0);
 
       function nextQuestion() {
         if (questionNumber >= allQuestions - 1) {
@@ -118,7 +119,8 @@
             btnNext.backgroundColor = "#e67e22";
           }
           questionNumber++; // questionNumber = questionNumber + 1
-          changeQuestion(getRundomQuestion());
+          // changeQuestion(getRundomQuestion());
+          changeQuestion(questionNumber);
           resetQuestion();
         }
       }
@@ -164,7 +166,7 @@
 
       function changeQuestion(number) {
         questionBox.innerHTML = questions[number].question;
-        questions.splice(number, 1);
+        // questions.splice(number, 1);
       }
 
       function gameover() {
@@ -180,7 +182,7 @@
 
       // TODO
       function restartGame(){
-        window.location = './index.html';
+        // window.location = './index.html';
       }
 
       function getRundomQuestion(){
