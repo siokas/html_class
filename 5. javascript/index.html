@@ -54,6 +54,7 @@
         <!-- <h1>Play Game</h1> -->
         <!-- <span># of Question:</span> <span id="score">0</span> -->
         <span id="score">Score: 0</span>
+        <span id="questions-remaining">Questions remaining: 0</span>
       </div>
       <div id="question-box" class="question-box"></div>
       <div id="message" class="message"></div>
@@ -93,7 +94,6 @@
 
     <script src="js/questions.js"></script>
     <script>
-
       var questionBox = document.getElementById("question-box");
       var message = document.getElementById("message");
       var btnTrue = document.getElementById("btn-true");
@@ -101,26 +101,28 @@
       var btnNext = document.getElementById("btn-next");
       var btnRestart = document.getElementById("btn-restart");
       var scoreElement = document.getElementById("score");
+      var questionsRemainingElement = document.getElementById(
+        "questions-remaining"
+      );
       var times = 0;
       var questionNumber = 0;
       var score = 0;
       var allQuestions = Object.keys(questions).length;
       var getRandomNumber = Math.floor(Math.random() * allQuestions);
+      var newQuestions = [];
 
-      // changeQuestion(getRundomQuestion());
-      changeQuestion(0);
+      questionsRemainingElement.innerHTML =  "Questions Remaining: " + allQuestions;
+
+      changeQuestion();
 
       function nextQuestion() {
-        if (questionNumber >= allQuestions - 1) {
+        questions.splice(questionNumber, 1);
+        allQuestions = Object.keys(questions).length;
+        if (allQuestions == 0) {
           gameover();
         } else {
-          if (questionNumber == allQuestions - 2) {
-            btnNext.innerHTML = "SHOW RESULTS";
-            btnNext.backgroundColor = "#e67e22";
-          }
           questionNumber++; // questionNumber = questionNumber + 1
-          // changeQuestion(getRundomQuestion());
-          changeQuestion(questionNumber);
+          changeQuestion();
           resetQuestion();
         }
       }
@@ -136,11 +138,15 @@
       }
 
       function checkAnswer(choise) {
-        if (questionNumber == allQuestions - 1) {
+        questionsRemainingElement.innerHTML =  "Questions Remaining: " + (allQuestions - 1);
+        if (allQuestions == 1) {
           btnFalse.hidden = true;
           btnTrue.hidden = true;
           btnNext.style.fontSize = "80px";
+          btnNext.innerHTML = "SHOW RESULTS";
+          btnNext.backgroundColor = "#e67e22";
         }
+        console.log('question num' + questionNumber);
         if (choise == questions[questionNumber].answer) {
           questionBox.style.backgroundColor = "green";
           message.style.color = "green";
@@ -164,9 +170,12 @@
         btnNext.hidden = false;
       }
 
-      function changeQuestion(number) {
-        questionBox.innerHTML = questions[number].question;
-        // questions.splice(number, 1);
+      function changeQuestion() {
+        allQuestions = Object.keys(questions).length;
+        questionNumber = Math.floor(Math.random() * allQuestions);
+        questionBox.innerHTML = questions[questionNumber].question;
+        newQuestions.push(questions[questionNumber]);
+        console.log(newQuestions);
       }
 
       function gameover() {
@@ -181,15 +190,24 @@
       }
 
       // TODO
-      function restartGame(){
+      function restartGame() {
         // window.location = './index.html';
-      }
-
-      function getRundomQuestion(){
-        allQuestions = Object.keys(questions).length;
-        getRandomNumber = Math.floor(Math.random() * allQuestions);
-        console.log(getRandomNumber)
-        return getRandomNumber;
+        // 1. Εμφάνιση σκορ και να το μηδενίσουμε
+        score = 0;
+        scoreElement.innerText = "Score: " + score;
+        // 2. Να εμφανίσουμε τα κουμπιά TRUE-FALSE και να εξαφανίσουμε το RESTART
+        btnRestart.hidden = true;
+        btnFalse.hidden = false;
+        btnTrue.hidden = false;
+        btnTrue.disabled = false;
+        btnFalse.disabled = false;
+        btnFalse.style.backgroundColor = "rgb(135, 81, 81)";
+        btnTrue.style.backgroundColor = "rgb(42, 101, 51)";
+        // 3. Να εμφανίσουμε την πρώτη ερώτηση
+        questionNumber = 0;
+        questions = newQuestions;
+        changeQuestion(questionNumber);
+        questionsRemainingElement.innerHTML =  "Questions Remaining: " + allQuestions;
       }
     </script>
   </body>
